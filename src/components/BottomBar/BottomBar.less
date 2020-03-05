@@ -1,0 +1,38 @@
+@import (once) "./../../static/styles/var.less";
+
+.junho-bottom-bar {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  font-weight: @global_font_weight;
+  background-color: @global_background_color;
+  color: @golobal_color;
+  font-size: 28px;
+}
+ 
+.junho-tab-item {
+  flex: 1;
+  text-align: center;
+  letter-spacing: 5px;
+  &.is-selected {
+    font-weight: bolder;
+  }
+  a {
+    cursor: none;
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+.junho-icon__plus {
+  display: block;
+  width: 75px;
+  height: 40px;
+  background-color: #fff;
+  color: black;
+  border-radius: 10px;
+  margin: 0 auto;
+  font-weight: bolder;
+  box-shadow: @global_box_shadow;
+}
