@@ -8,7 +8,7 @@ import LovaAnimation from '../LoveAnimation/love'
 // 用于prop类型校验
 type Props = {
   url: string // 播放地址
-  isCurrent: Boolean // 当前可以播放啦
+  isCurrent: boolean // 当前可以播放啦
   poster: string // 封面
 }
 

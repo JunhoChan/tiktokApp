@@ -1,0 +1,1 @@
+export const UPDATE_SHOW_MESSAGE: string = 'UPDATE_SHOW_MESSAGE'

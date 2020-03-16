@@ -10,8 +10,7 @@
 ```
 
 ### 运行截图：
-![首页截图1](https://github.com/JunhoChan/tiktokApp/blob/master/assets/home1.gif) 
-![首页截图2](https://github.com/JunhoChan/tiktokApp/blob/master/assets/home2.gif) 
+![运行截图](https://www.baidu.com/img/bd_logo1.png) 
 
 
 ### 疑问

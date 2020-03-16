@@ -1,0 +1,31 @@
+.more-message_btn {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  color: #999;
+  position: relative;
+  height: 40px;
+  line-height: 40px;
+  &::before {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 1px;
+    background-color: #999;
+    margin-right: 10px;
+  }
+  &::after {
+    content: '';
+    width: 0;
+    height: 0;
+    position: absolute;
+    border: 6px solid #999;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    transform: rotate(45deg);
+    top: 2px;
+    right: -10px;
+  }
+}

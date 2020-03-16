@@ -1,0 +1,70 @@
+.video-user-message_wrapper {
+  display: flex;
+  width: 100%;
+  transition: all .5s;
+  // padding: 30px;
+  &.isChild {
+    padding-right: 0;
+    padding-left: 0;
+    padding-top: 0;
+  }
+  .message-user-avator {
+    display: block;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    &.isChild {
+      width: 50px;
+      height: 50px;
+    }
+  }
+}
+
+.video-user-message_wrapper > .message-content {
+  flex: 1;
+  padding: 10px 20px;
+  position: relative;
+  &.isChild {
+    padding-right: 0;
+  }
+  .message-user_section {
+    width: 80%;
+    .username {
+      letter-spacing: 2px;
+      padding-bottom: 5px;
+      color: #666;
+    }
+    .message-content_inner {
+      font-size: 28px;
+      .message-text {
+        padding-right: 10px;
+      }
+      .message-create-time {
+        color: #999;
+        text-indent: 20px;
+        font-size: 10px;
+        white-space:nowrap;
+      }
+    }
+  }
+
+
+  .message-like_section {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: flex-end;
+    color: #999;
+    width: 100px;
+    .message-like_section_inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .message-icon-love {
+        width: 50px;
+        height: 50px;
+      }
+    }
+  }
+}

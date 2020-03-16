@@ -1,7 +1,8 @@
-import React, { memo, useEffect, useRef, useState } from 'react'
+import React, { memo, useEffect, useRef, useState, useContext } from 'react'
+import { StoreContext } from '@/reducer'
 import { withRouter } from 'react-router-dom'
 import { Routes } from '@/interfaces/router/Router'
-import './Home.less'
+import { UPDATE_SHOW_MESSAGE } from '@/reducer/type'
 // handle child ref by useImperativeHandle method
 import selfApi from '@/api'
 
@@ -11,9 +12,13 @@ import VideoTool from '@/components/VideoTool/VideoTool'
 import TopNavigation from './components/TopNavigation/TopNavigation'
 import RightContent from './components/RightContent/RightContent'
 import BottomContent from './components/BottomContent/BottomContent'
+import MessageList from './components/MessageList/MessageList'
+
+import './Home.less'
 // 用于prop类型校验
 
 const HomePage: React.FC<Routes> = (Props: Routes) => {
+  const { dispatch } = useContext(StoreContext)
   const homeElement = useRef(null)
   const leftElement = useRef(null)
   const rightElement = useRef(null)
@@ -56,6 +61,7 @@ const HomePage: React.FC<Routes> = (Props: Routes) => {
    */
   function _initSwiper() {
     const homeSwiper = new Swiper(homeElement.current, 'home-video', 'horizontal', (res: any) => {
+      dispatch({ type: UPDATE_SHOW_MESSAGE, value: false })
       if (parseInt(res) === 0) {
         setVideoType('follow')
         recommendSwiper && recommendSwiper.stopSwiper()
@@ -68,46 +74,58 @@ const HomePage: React.FC<Routes> = (Props: Routes) => {
     })
     const followSwiper = new Swiper(leftElement.current, 'follow-video', 'verticle', (res: any) => {
       setFollowIndex(res)
+      dispatch({ type: UPDATE_SHOW_MESSAGE, value: false })
     })
     const recommendSwiper = new Swiper(rightElement.current, 'recommend-video', 'verticle', (res: any) => {
       setRecommendIndex(res)
+      dispatch({ type: UPDATE_SHOW_MESSAGE, value: false })
     })
     homeSwiper.sartOrResumeSwiper()
     followSwiper.sartOrResumeSwiper()
     // return componentWillUnmount(homeSwiper, followSwiper, recommendSwiper)
   }
+  /**
+   * @description 触发显示消息列表
+   * @param {Boolean} isVisiable
+   */
+  function visiableMessage(isVisiable?: boolean) {
+    console.log(isVisiable)
+  }
 
   return (
-    <div className="home-page" ref={homeElement}>
+    <div className="home-page">
       <TopNavigation videoType={videoType}></TopNavigation>
-      {resources.map((resource: any, tabIndex: number) => {
-        return (
-          <ul
-            className={`home-video ${!tabIndex ? 'follow-wrapper' : 'recommend-wrapper'}`}
-            ref={!tabIndex ? leftElement : rightElement}
-            key={'homeTab' + tabIndex}
-          >
-            {resource.children.map((videoResource: any, rIndex: number) => {
-              return (
-                <li className={`video-item ${!tabIndex ? 'follow-video' : 'recommend-video'}`} key={'video' + rIndex}>
-                  <div className="video-item_inner">
-                    <VideoTool
-                      url={'http://localhost:3001' + videoResource.videoUrl}
-                      isCurrent={
-                        (followIndex === rIndex && videoType === 'follow') ||
-                        (recommendIndex === rIndex && videoType === 'recommend')
-                      }
-                      poster={'http://localhost:3001' + videoResource.avatorUrl}
-                    ></VideoTool>
-                  </div>
-                  <RightContent></RightContent>
-                  <BottomContent description={videoResource.description}></BottomContent>
-                </li>
-              )
-            })}
-          </ul>
-        )
-      })}
+      <div className="home-page-swiper_wrapper" ref={homeElement}>
+        {resources.map((resource: any, tabIndex: number) => {
+          return (
+            <ul
+              className={`home-video ${!tabIndex ? 'follow-wrapper' : 'recommend-wrapper'}`}
+              ref={!tabIndex ? leftElement : rightElement}
+              key={'homeTab' + tabIndex}
+            >
+              {resource.children.map((videoResource: any, rIndex: number) => {
+                return (
+                  <li className={`video-item ${!tabIndex ? 'follow-video' : 'recommend-video'}`} key={'video' + rIndex}>
+                    <div className="video-item_inner">
+                      <VideoTool
+                        url={'http://localhost:3001' + videoResource.videoUrl}
+                        isCurrent={
+                          (followIndex === rIndex && videoType === 'follow') ||
+                          (recommendIndex === rIndex && videoType === 'recommend')
+                        }
+                        poster={'http://localhost:3001' + videoResource.avatorUrl}
+                      ></VideoTool>
+                    </div>
+                    <RightContent visiableMessage={(res: boolean) => visiableMessage(res)}></RightContent>
+                    <BottomContent description={videoResource.description}></BottomContent>
+                  </li>
+                )
+              })}
+            </ul>
+          )
+        })}
+      </div>
+      <MessageList></MessageList>
     </div>
   )
 }

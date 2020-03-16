@@ -1,13 +1,24 @@
-import React, { memo, useEffect, useRef, useState } from 'react'
-import './RightConetnt.less'
-// handle child ref by useImperativeHandle method
+import React, { memo, useContext } from 'react'
+import { StoreContext } from '@/reducer'
+import { UPDATE_SHOW_MESSAGE } from '@/reducer/type'
+
 import MsgIcon from './icon/message.svg'
 import WechatIcon from './icon/wechat.svg'
 import LoveIcon from './icon/love.svg'
+import './RightConetnt.less'
 
 // 用于prop类型校验
-type Prop = {}
+type Prop = {
+  visiableMessage: any
+}
 const RightWrapper: React.FC<Prop> = (props) => {
+  const { state, dispatch } = useContext(StoreContext)
+
+  function clickMessageIcon() {
+    const isVisiable = !!state.isShowMessage
+    dispatch({ type: UPDATE_SHOW_MESSAGE, value: !isVisiable })
+  }
+
   return (
     <div className="home-right__wrapper">
       <div className="right-bottom">
@@ -18,7 +29,7 @@ const RightWrapper: React.FC<Prop> = (props) => {
         ></img>
         <LoveIcon className="svg-image"></LoveIcon>
         <div className="count-txt">2.9w</div>
-        <MsgIcon className="svg-image"></MsgIcon>
+        <MsgIcon className="svg-image" onClick={() => clickMessageIcon()}></MsgIcon>
         <div className="count-txt">2.9w</div>
         <WechatIcon className="svg-image isScale"></WechatIcon>
         <div className="count-txt">2.9w</div>

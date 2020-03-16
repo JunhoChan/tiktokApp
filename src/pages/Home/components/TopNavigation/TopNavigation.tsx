@@ -9,7 +9,7 @@ type Prop = {
 const topNavigation: React.FC<Prop> = (props) => {
   const { videoType } = props
   return (
-    <div className={`top-navigation_wrapper ${videoType === 'recommend' ? 'isRecommend' : null}`}>
+    <div className="top-navigation_wrapper">
       <div className={`top-navigation-txt ${videoType === 'follow' ? 'isCurrent' : null}`}>关注</div>
       <div className={`top-navigation-txt ${videoType === 'recommend' ? 'isCurrent' : null}`}>推荐</div>
     </div>

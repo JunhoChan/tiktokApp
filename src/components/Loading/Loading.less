@@ -1,0 +1,42 @@
+.loading-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  margin: 0 auto;
+  .loading-icon {
+    display: flex;
+    width: 40px;
+    line-height: 40px;
+    animation: loadingAnimation 1s infinite linear;
+    &::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      margin-top: 10px;
+      background-color: #d81e06;
+      margin-right: 2px;
+    }
+    &::after {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 20px;
+      margin-top: 10px;
+      border-radius: 50%;
+      background-color: #595FC5;
+    }
+  
+    @keyframes loadingAnimation {
+      to {
+        transform: rotateY(0);
+      }
+      from {
+        transform: rotateY(180deg);
+      }
+    }
+  }
+}
